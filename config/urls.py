@@ -18,7 +18,7 @@ urlpatterns = [
     # User management
     url(r'^users/', include("toko.users.urls", namespace="users")),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^products/', include('products.urls')),
+    url(r'^products/', include('toko.taskapp.products.urls')),
 
     # Your stuff: custom urls includes go here
 
