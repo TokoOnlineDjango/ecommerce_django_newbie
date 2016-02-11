@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 
 class ProductsConfig(AppConfig):
-    name = 'toko.taskapp.products'
+    name = 'toko.apps.products'

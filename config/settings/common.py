@@ -35,17 +35,16 @@ DJANGO_APPS = (
     'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
-    'crispy_forms',  # Form layouts
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'crispy_forms',  # Form layouts
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    'toko.users',  # custom users app
-    'toko.taskapp.products'
-    # Your stuff: custom apps go here
+    'toko.apps.products',
+    'toko.apps.users',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -111,7 +110,7 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'Asia/Bangkok'
+TIME_ZONE = 'Asia/Jakarta'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = 'en-us'
@@ -170,7 +169,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # STATIC FILE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = str(ROOT_DIR('staticfiles'))
+STATIC_ROOT = str(ROOT_DIR('static_files'))
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = '/static/'
@@ -212,8 +211,8 @@ AUTHENTICATION_BACKENDS = (
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_ADAPTER = 'toko.users.adapter.AccountAdapter'
-SOCIALACCOUNT_ADAPTER = 'toko.users.adapter.SocialAccountAdapter'
+ACCOUNT_ADAPTER = 'toko.apps.users.adapter.AccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'toko.apps.users.adapter.SocialAccountAdapter'
 ACCOUNT_ALLOW_REGISTRATION = True
 
 # Custom user app defaults
@@ -225,12 +224,12 @@ LOGIN_URL = 'account_login'
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
-########## CELERY
+# CELERY
 INSTALLED_APPS += ('toko.taskapp.celery.CeleryConfig',)
 # if you are not using the django database broker (e.g. rabbitmq, redis, memcached), you can remove the next line.
 INSTALLED_APPS += ('kombu.transport.django',)
 BROKER_URL = env("CELERY_BROKER_URL", default='django://')
-########## END CELERY
+# END CELERY
 
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
