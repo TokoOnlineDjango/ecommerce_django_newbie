@@ -4,7 +4,7 @@ toko
 A short description of the project.
 
 
-LICENSE: BSD
+LICENSE: [MIT](http://fendi.mit-license.org)
 
 Settings
 ------------
