@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^products/', include('toko.apps.products.urls', namespace="products")),
     url(r'^users/', include("toko.apps.users.urls", namespace="users")),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls', namespace="ckedior")),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
