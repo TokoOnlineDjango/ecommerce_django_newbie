@@ -6,6 +6,16 @@ before_install:
   - sudo apt-get install -qq graphviz-dev python-setuptools python3-dev python-virtualenv python-pip
   - sudo apt-get install -qq firefox automake libtool libreadline6 libreadline6-dev libreadline-dev
   - sudo apt-get install -qq libsqlite3-dev libxml2 libxml2-dev libssl-dev libbz2-dev wget curl llvm
+  - sudo psql -c 'create database toko;' -U postgres
 language: python
 python:
   - "2.7"
+services:
+  - postgresql
+addons:
+  postgresql: "9.3"
+script:
+  - "python manage.py migrate --noinput"
+  - "python manage.py collectstatic --noinput -l"
+env:
+  - POSTGRES_USER=postgres POSTGRES_PASSWORD= DATABASE_URL=postgres:///toko
