@@ -5,22 +5,15 @@ from django.conf.urls import url
 
 from . import views
 
-urlpatterns = [
 
+urlpatterns = [
     url(
         regex=r'^(?P<pk>\d+)/$',
         view=views.ProductDetailView.as_view(),
-        name='product_details'
-    ),  url(
+        name='detail'
+    ), url(
         regex=r'^',
         view=views.ProductListlView.as_view(),
-        name='product_list'
+        name='list'
     ),
-    # url(
-    #     regex=r'^(?P<id>\d+)',
-    #     view=views.product_detail_view_function,
-    #     name='product_details_function'
-    # ),
-
-
 ]
