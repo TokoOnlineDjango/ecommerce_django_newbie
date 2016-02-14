@@ -102,7 +102,8 @@ DATABASES = {
     'default': env.db("DATABASE_URL", default="postgres:///toko"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
-
+DATABASES['default']['USER'] = env('POSTGRES_USER')
+DATABASES['default']['PASSWORD'] = env('POSTGRES_PASSWORD', default='')
 
 # GENERAL CONFIGURATION
 # ------------------------------------------------------------------------------
