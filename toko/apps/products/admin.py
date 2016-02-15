@@ -12,6 +12,8 @@ class ProductVariationAdmin(admin.ModelAdmin):
 class PhotoAdmin(admin.ModelAdmin):
     model = ProductImage
     list_display = ['image','product']
+    readonly_fields = ('image',)
+
 
     def image_img(self):
         if self.image:
