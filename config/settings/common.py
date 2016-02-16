@@ -16,6 +16,7 @@ ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 APPS_DIR = ROOT_DIR.path('toko')
 
 env = environ.Env()
+environ.Env.read_env()
 
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -40,6 +41,7 @@ THIRD_PARTY_APPS = (
     'allauth.socialaccount',  # registration
     'crispy_forms',  # Form layouts
     'ckeditor', # Ck Editor
+    'easy_thumbnails',  # Image thumbnailers
 )
 
 # Apps specific for this project go here.
@@ -105,7 +107,8 @@ DATABASES = {
     'default': env.db("DATABASE_URL", default="postgres:///toko"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
-
+DATABASES['default']['USER'] = env('POSTGRES_USER')
+DATABASES['default']['PASSWORD'] = env('POSTGRES_PASSWORD', default='')
 
 # GENERAL CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -239,3 +242,10 @@ BROKER_URL = env("CELERY_BROKER_URL", default='django://')
 ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
+
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (50, 50), 'crop': True},
+    },
+}

@@ -4,12 +4,13 @@ from django.views.generic.list import ListView
 from .models import Product
 
 class ProductDetailView(DetailView):
+    template_name = 'products/detail.html'
     model = Product
+    context_object_name = 'product'
 
 class ProductListlView(ListView):
+    template_name = 'products/list.html'
     model = Product
     queryset = Product.objects.all()
 
-    def get_context_data(self, **kwargs):
-        context = super(ProductListlView, self).get_context_data(**kwargs)
-        return context
+    context_object_name = 'products'
