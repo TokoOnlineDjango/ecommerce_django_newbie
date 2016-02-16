@@ -6,15 +6,15 @@
             <div class="container">
                 <div class="col-md-8">
                     <h2>{{ product }} </h2>
-                    {% for img in product.photos.all %}
-                        <img src="{{ img.photo.url }}" >
+                    {% for photo in product.photos.all %}
+                        <img src="{{ photo.image.url }}" >
                     {% endfor %}
                 </div>
                 <div class="col-md-4">
                     <h4>${{ product.prices }}</h4>
-                    {% if product.variations_set.all.count > 1 %}
+                    {% if product.variations.all %}
                         <select class="form-control" id="sel1">
-                            {% for variation in product.variations_set.all %}
+                            {% for variation in product.variations %}
                                 <option value="{{ variation.name }}">{{ variation }}</option>
                             {% endfor %}
                         </select>

@@ -57,10 +57,10 @@ class ProductVariation(models.Model):
                                 null=True, decimal_places=2, max_digits=1000)
 
     def get_absolute_url(self):
-        return self.product.get_absolute_url
+        return self.product.get_absolute_url()
 
     def __unicode__(self):
-        return u"%s"% self.name
+        return u"%s" % self.name
 
 
 class Category(TimeStampedModel):
