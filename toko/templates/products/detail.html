@@ -14,7 +14,7 @@
                     <h4>${{ product.prices }}</h4>
                     {% if product.variations.all %}
                         <select class="form-control" id="sel1">
-                            {% for variation in product.variations %}
+                            {% for variation in product.variations.all %}
                                 <option value="{{ variation.name }}">{{ variation }}</option>
                             {% endfor %}
                         </select>
