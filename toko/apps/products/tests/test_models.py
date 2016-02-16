@@ -1,28 +1,41 @@
 from django.test import TestCase
-from ..models import Product, Category
-from django.core.urlresolvers import reverse
-from django.contrib.auth import get_user_model
-# models test
+
+from ..models import Category, Product
+from toko.apps.users.models import User
 
 
-class CategoryTest(TestCase):
+class ProductTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='kangfend', password='test123')
+        self.category = Category.objects.create(name='Drink')
+        self.data = {
+            'name': 'Product 1',
+            'description': 'Product description',
+            'is_active': True,
+            'category': self.category,
+            'price': 100000
+        }
+        self.product = self.user.products.create(**self.data)
 
-    def create_category(self):
-        name = 'category_test'
-        User = get_user_model()
-        user = User.objects.create(username="admin", password="admin")
-        return Category.objects.create(name = name, created_by = user)
+    def test_product_manager(self):
+        product_1 = self.product
 
-    def create_category_slug_uniqe(self):
-        name = 'category_test'
-        return Category.objects.create(name = name)
+        # Create product 2
+        self.data['name'] = 'Product 2'
+        product_2 = self.user.products.create(**self.data)
 
-    def test_CategoryTest_create(self):
-        category = self.create_category()
-        category_slug_uniqe = self.create_category_slug_uniqe()
-        self.assertTrue(isinstance(category, Category))
-        self.assertEqual(category.__unicode__(), category.name)
-        self.assertEqual(category.created_by.username, 'admin')
-        self.assertRaises(category.name == category_slug_uniqe.name)
+        # Create product 3
+        self.data['name'] = 'Product 3'
+        self.data['is_active'] = False
+        product_3 = self.user.products.create(**self.data)
 
+        # This query should return all product with status active
+        products = Product.objects.all()
+        self.assertIn(product_1, products)
+        self.assertIn(product_2, products)
+        self.assertNotIn(product_3, products)
 
+    def test_product_method(self):
+        # Ensure get_absolute_url return a valid url
+        self.assertEqual(self.product.get_absolute_url(),
+                         '/products/%s/detail' % self.product.id)

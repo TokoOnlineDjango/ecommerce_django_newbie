@@ -5,18 +5,17 @@
         <div class="item-container">
             <div class="container">
                 <div class="col-md-8">
-                    <h2>{{ object }} </h2>
-                    {% for img in object.productimage_set.all %}
-                        <img src="{{ img.image.url }}" >
-
+                    <h2>{{ product }} </h2>
+                    {% for img in product.photos.all %}
+                        <img src="{{ img.photo.url }}" >
                     {% endfor %}
                 </div>
                 <div class="col-md-4">
-                    <h4>${{ object.prices }}</h4>
-                    {% if object.productvariation_set.all.count > 1 %}
+                    <h4>${{ product.prices }}</h4>
+                    {% if product.variations_set.all.count > 1 %}
                         <select class="form-control" id="sel1">
-                            {% for i in object.productvariation_set.all %}
-                                <option value="{{ i.id }}">{{ i }}</option>
+                            {% for variation in product.variations_set.all %}
+                                <option value="{{ variation.name }}">{{ variation }}</option>
                             {% endfor %}
                         </select>
                     {% endif %}
@@ -32,7 +31,7 @@
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade in active" id="service-one">
                             <section class="container product-info col-md-12 warp_text">
-                                {{ object.description|safe }}
+                                {{ product.description|safe }}
                             </section>
                         </div>
                     </div>

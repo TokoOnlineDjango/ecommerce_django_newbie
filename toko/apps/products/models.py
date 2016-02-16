@@ -45,26 +45,22 @@ class Product(TimeStampedModel):
         return reverse('products:detail', kwargs={'pk': self.pk})
 
     def __unicode__(self):
-        return "%s" % self.name
+        return u"%s" % self.name
 
 
 class ProductVariation(models.Model):
     name = models.CharField(max_length=120)
-    product = models.ForeignKey(Product)
+    product = models.ForeignKey('products.Product', related_name = 'variations')
     stock = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
-    price = models.DecimalField(decimal_places=2, max_digits=1000)
+    price = models.DecimalField(validators=[MinValueValidator(0)],blank = True,
+                                null=True, decimal_places=2, max_digits=1000)
 
     def get_absolute_url(self):
         return self.product.get_absolute_url
 
     def __unicode__(self):
-        return '%s'% self.name
-
-
-class ProductImage(models.Model):
-    product = models.ForeignKey(Product)
-    image = models.ImageField(upload_to='product/')
+        return u"%s"% self.name
 
 
 class Category(TimeStampedModel):
