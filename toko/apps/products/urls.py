@@ -5,7 +5,6 @@ from django.conf.urls import url
 
 from . import views
 
-
 urlpatterns = [
     url(
         regex=r'^(?P<pk>\d+)/detail$',
@@ -16,4 +15,5 @@ urlpatterns = [
         view=views.ProductListlView.as_view(),
         name='list'
     ),
+
 ]

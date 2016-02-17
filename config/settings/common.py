@@ -40,6 +40,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'crispy_forms',  # Form layouts
+    'ckeditor', # Ck Editor
     'easy_thumbnails',  # Image thumbnailers
 )
 
@@ -48,6 +49,8 @@ LOCAL_APPS = (
     'toko.apps.products',
     'toko.apps.users',
 )
+
+CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
