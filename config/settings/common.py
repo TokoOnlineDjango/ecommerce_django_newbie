@@ -40,7 +40,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'crispy_forms',  # Form layouts
-    'ckeditor', # Ck Editor
+    'ckeditor',  # Ck Editor
     'easy_thumbnails',  # Image thumbnailers
 )
 

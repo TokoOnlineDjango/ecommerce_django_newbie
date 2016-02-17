@@ -48,8 +48,17 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'about' %}">About</a>
               </li>
+              <li class="nav-item">
+                <form class="navbar-left" role="search" method="GET" action="{% url 'products:list' %}">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q">
+                  </div>
+              </li>
+              <li class="nav-item">
+                  <button type="submit" class="btn btn-default navbar-left">Submit</button>
+                </form>
+              </li>
             </ul>
-
             <ul class="nav navbar-nav pull-xs-right">
               {% if request.user.is_authenticated %}
                 <li class="nav-item">
