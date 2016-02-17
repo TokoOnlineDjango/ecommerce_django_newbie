@@ -19,14 +19,14 @@ class ProductListlView(ListView):
     context_object_name = 'products'
 
     def get_queryset(self, *arg, **kwargs):
-        search = super(ProductListlView, self).get_queryset(*arg, **kwargs)
+        queryset = super(ProductListlView, self).get_queryset(*arg, **kwargs)
         query = self.request.GET.get('q')
         if query:
-            search = self.model.objects.filter(Q(name__icontains=query) |
-                                               Q(description__icontains=query))
+            queryset = queryset.filter(Q(name__icontains=query) |
+                                       Q(description__icontains=query))
             try:
-                search_price = self.model.objects.filter(Q(price=query))
-                search = (search_price | search).distinct()
+                search_price = queryset.filter(Q(price=query))
+                queryset = (search_price | queryset).distinct()
             except Exception:
                 pass
-        return search
+        return queryset
