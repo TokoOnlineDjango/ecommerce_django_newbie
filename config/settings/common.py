@@ -42,6 +42,7 @@ THIRD_PARTY_APPS = (
     'crispy_forms',  # Form layouts
     'ckeditor',  # Ck Editor
     'easy_thumbnails',  # Image thumbnailers
+    'fontawesome',  # Django fontawesome
 )
 
 # Apps specific for this project go here.
@@ -246,6 +247,8 @@ ADMIN_URL = r'^admin/'
 
 THUMBNAIL_ALIASES = {
     '': {
-        'avatar': {'size': (50, 50), 'crop': True},
+        'avatar': {'size': (602, 339), 'crop': True},
     },
 }
+
+FONTAWESOME_CSS_URL = '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'  # absolute url
