@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ..models import Category, Product
+from toko.apps.products.models import Category, Product
 from toko.apps.users.models import User
 
 
@@ -35,7 +35,7 @@ class ProductTest(TestCase):
         self.assertIn(product_2, products)
         self.assertNotIn(product_3, products)
 
-    def test_product_method(self):
+    def test_get_absolute_url(self):
         # Ensure get_absolute_url return a valid url
         self.assertEqual(self.product.get_absolute_url(),
                          '/products/%s/detail' % self.product.id)
