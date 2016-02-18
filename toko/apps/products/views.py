@@ -29,8 +29,7 @@ class ProductListlView(ListView):
         queryset = super(ProductListlView, self).get_queryset(*arg, **kwargs)
         query = self.request.GET.get('q')
         if query:
-            q_objects = queryset.filter(Q(name__icontains=query) |
-                                        Q(description__icontains=query))
+            q_objects = [Q(name__icontains=query), Q(description__icontains=query)]
             if query.isdigit():
                 q_objects.append(Q(price=query))
             queryset = queryset.filter(reduce(OR, q_objects))

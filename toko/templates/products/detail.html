@@ -1,49 +1,48 @@
 {% extends 'base.html' %}
-
 {% block content %}
-    <div class="container-fluid">
-    <div class="content-wrapper">
-        <div class="item-container">
-            <div class="container">
-                <div class="col-md-8">
-                    <h2>{{ product }} </h2>
-                    {% for photo in product.photos.all %}
-                        <img src="{{ photo.image.avatar.url  }}" >
-                    {% endfor %}
-                </div>
-                <div class="col-md-4">
-                    <h4 class="price_detail">${{ product.price }}</h4>
-                    {% if product.variations.all %}
-                        <select class="form-control" id="sel1">
-                            {% for variation in product.variations.all %}
-                                <option value="{{ variation.price }}">{{ variation }}</option>
-                            {% endfor %}
-                        </select>
-                    {% endif %}
-                    <br>
-                    <a href="#">AddChart</a>
-                    <hr>
-                    Share:<br>
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
-                <span class="fa fa-facebook fa-2x"></span>
-                </a>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="col-md-12 product-info">
-                    <ul id="myTab" class="nav nav-tabs nav_tabs">
-                        <li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
-                    </ul>
-                    <div id="myTabContent" class="tab-content">
-                        <div class="tab-pane fade in active" id="service-one">
-                            <section class="container product-info col-md-12 warp_text">
-                                {{ product.description|safe }}
-                            </section>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-            </div>
-        </div>
+<div class="container-fluid">
+<div class="content-wrapper">
+  <div class="item-container">
+    <div class="container">
+      <div class="col-md-8">
+        <h2>{{ product }} </h2>
+        {% for photo in product.photos.all %}
+        <img src="{{ photo.image.avatar.url  }}" >
+        {% endfor %}
+      </div>
+      <div class="col-md-4">
+        <h4 class="price_detail">${{ product.price }}</h4>
+        {% if product.variations.all %}
+        <select class="form-control" id="sel1">
+          {% for variation in product.variations.all %}
+          <option value="{{ variation.price }}">{{ variation }}</option>
+          {% endfor %}
+        </select>
+        {% endif %}
+        <br>
+        <a href="#">AddChart</a>
+        <hr>
+        Share:<br>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+        <span class="fa fa-facebook fa-2x"></span>
+        </a>
+      </div>
     </div>
+    <div class="container-fluid">
+      <div class="col-md-12 product-info">
+        <ul id="myTab" class="nav nav-tabs nav_tabs">
+          <li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade in active" id="service-one">
+            <section class="container product-info col-md-12 warp_text">
+              {{ product.description|safe }}
+            </section>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
