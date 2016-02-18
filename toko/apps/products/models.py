@@ -36,10 +36,14 @@ class Product(TimeStampedModel):
     is_active = models.BooleanField(default=True)
     created_by = models.ForeignKey('users.User', related_name='products',
                                    blank=True, null=True)
-    category = models.ForeignKey('products.Category', related_name='products',
-                                 blank=True, null=True)
     price = models.DecimalField(validators=[MinValueValidator(0)], blank=True,
                                 null=True, decimal_places=2, max_digits=1000)
+    categories = models.ManyToManyField('products.Category',
+                                        related_name='categories',
+                                        blank=True, null=True)
+    default = models.ForeignKey('products.Category',
+                                related_name='default__categories',
+                                blank=True, null=True)
 
     objects = ProductManager()
 
@@ -68,8 +72,14 @@ class ProductVariation(models.Model):
 class Category(TimeStampedModel):
     name = models.CharField(max_length=100)
     slug = AutoSlugField(populate_from='name', unique=True, overwrite=False)
+    description = RichTextField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
     created_by = models.ForeignKey('users.User', related_name='product_categories',
                                    blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse('categories:detail', kwargs={'slug': self.slug})
 
     def __unicode__(self):
         return u"%s" % self.name

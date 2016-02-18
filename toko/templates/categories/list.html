@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table class="table">
+<tbody>
+  {% for category in  categories %}
+<tr>
+    <td><a href=" {{ category.get_absolute_url }} ">{{ category }}</a>  </td>
+</tr>
+    {% endfor %}
+</tbody>
+
+</table>
+{% endblock %}

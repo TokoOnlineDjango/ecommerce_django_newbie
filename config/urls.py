@@ -18,6 +18,7 @@ urlpatterns = [
     # User management
     url(r'^accounts/', include('allauth.urls')),
     url(r'^products/', include('toko.apps.products.urls', namespace="products")),
+    url(r'^categories/', include('toko.apps.products.urls_category', namespace="categories")),
     url(r'^users/', include("toko.apps.users.urls", namespace="users")),
     url(r'^ckeditor/', include('ckeditor_uploader.urls', namespace="ckedior")),
 
