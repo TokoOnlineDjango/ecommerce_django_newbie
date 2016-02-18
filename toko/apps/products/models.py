@@ -41,10 +41,6 @@ class Product(TimeStampedModel):
     categories = models.ManyToManyField('products.Category',
                                         related_name='categories',
                                         blank=True, null=True)
-    default = models.ForeignKey('products.Category',
-                                related_name='default__categories',
-                                blank=True, null=True)
-
     objects = ProductManager()
 
     def get_absolute_url(self):
