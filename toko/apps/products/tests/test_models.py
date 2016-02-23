@@ -8,11 +8,13 @@ class ProductTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='kangfend', password='test123')
         self.category = Category.objects.create(name='Drink')
+        self.product = Product.objects.create(name='Pepsi')
+        # self.products.categories.add(categories= self.category)
         self.data = {
             'name': 'Product 1',
             'description': 'Product description',
             'is_active': True,
-            'category': self.category,
+            'categories': self.products.categories.add(self.category),
             'price': 100000
         }
         self.product = self.user.products.create(**self.data)

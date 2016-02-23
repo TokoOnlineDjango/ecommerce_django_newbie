@@ -1,5 +1,7 @@
 from operator import __or__ as OR
 
+import random
+
 from django.db.models import Q
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -12,7 +14,7 @@ class CategoryDetailView(DetailView):
 
     template_name = 'categories/detail.html'
     model = Category
-    context_object_name = 'object_category'
+    context_object_name = 'category'
 
 
 class CategoryListView(ListView):
@@ -30,7 +32,16 @@ class ProductDetailView(DetailView):
 
     template_name = 'products/detail.html'
     model = Product
+    queryset = Product.objects.prefetch_related('variations', 'photos')
+
     context_object_name = 'product'
+
+    def get_context_data(self, *arg, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(*arg, **kwargs)
+        instance = self.get_object()
+        context["related"] = sorted(Product.objects.get_related(instance),
+                                    key=lambda x: random.random())
+        return context
 
 
 class ProductListlView(ListView):

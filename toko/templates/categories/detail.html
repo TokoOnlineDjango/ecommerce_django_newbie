@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>{{ object_category }}</h2>
+<h2>{{ category }}</h2>
 
 <table class="table">
-{% for category in  object_category.categories.all %}
+{% for category in  category.products.all %}
   <tr>
       <td>{{ category }}</td>
   </tr>

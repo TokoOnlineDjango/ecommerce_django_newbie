@@ -28,23 +28,37 @@ class ProductManager(models.Manager):
     def all(self, *args, **kwargs):
         return self.get_queryset().active()
 
+    def get_related(self, instance):
+        product_related = self.get_queryset().filter(categories__in=instance.categories.all())
+        return product_related
+
 
 class Product(TimeStampedModel):
     name = models.CharField(max_length=120)
     description = RichTextField(blank=True, null=True)
     stock = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
-    created_by = models.ForeignKey('users.User', related_name='products',
+    created_by = models.ForeignKey('users.User', related_name='user_products',
                                    blank=True, null=True)
     price = models.DecimalField(validators=[MinValueValidator(0)], blank=True,
                                 null=True, decimal_places=2, max_digits=1000)
     categories = models.ManyToManyField('products.Category',
-                                        related_name='categories',
+                                        related_name='products',
                                         blank=True, null=True)
     objects = ProductManager()
 
     def get_absolute_url(self):
         return reverse('products:detail', kwargs={'pk': self.pk})
+
+    def get_image_detail_url(self):
+        crop_photo = {'size': (50, 50), 'crop': True}
+        photos = get_thumbnailer(self.photos.first().image).get_thumbnail(crop_photo).url
+        return photos
+
+    def get_image_list_url(self):
+        crop_photo = {'size': (306, 160), 'crop': True}
+        photos = get_thumbnailer(self.photos.first().image).get_thumbnail(crop_photo).url
+        return photos
 
     def __unicode__(self):
         return u"%s" % self.name
@@ -94,5 +108,5 @@ class Photo(TimeStampedModel):
 @receiver(models.signals.post_delete, sender=Photo)
 def auto_delete_image_on_delete(sender, instance, **kwargs):
     if instance.image:
-        thumbmanager = get_thumbnailer(instance.image)
-        thumbmanager.delete(save=False)
+        image = get_thumbnailer(instance.image)
+        image.delete(save=False)
