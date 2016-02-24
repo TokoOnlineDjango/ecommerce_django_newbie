@@ -11,7 +11,7 @@ urlpatterns = [
         view=views.CategoryDetailView.as_view(),
         name='detail'
     ), url(
-        regex=r'^',
+        regex=r'^$',
         view=views.CategoryListView.as_view(),
         name='list'
     ),

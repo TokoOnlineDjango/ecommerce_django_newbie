@@ -7,11 +7,11 @@ from . import views
 
 urlpatterns = [
     url(
-        regex=r'^(?P<pk>\d+)/detail$',
+        regex=r'^(?P<slug>[\w-]+)/detail$',
         view=views.ProductDetailView.as_view(),
         name='detail'
     ), url(
-        regex=r'^',
+        regex=r'^$',
         view=views.ProductListlView.as_view(),
         name='list'
     ),

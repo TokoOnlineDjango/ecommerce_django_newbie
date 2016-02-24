@@ -1,15 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
+<h4>All Product <a href="{% url 'categories:list' %}">Category</h4>
+<hr>
 <div class="row">
   {% for product in products %}
-  <div class="col-sm-6">
-    <div class="thumbnail">
-      <h4><a href=" {{ product.get_absolute_url }} ">{{ product.name }}</a></h4>
-      <img class="image-responsive" src="{{ product.get_image_list_url  }}" ><br>
-      <div class="caption">
-        <h3>{{ product.categories.first }}</h3>
-      </div>
-    </div>
+  <div class="col-sm-4">
+      {% include "products/product_thumbnails.html" with product=product %}
   </div>
   {% endfor %}
 </div>

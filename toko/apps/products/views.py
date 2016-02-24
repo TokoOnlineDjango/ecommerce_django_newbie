@@ -36,8 +36,8 @@ class ProductDetailView(DetailView):
 
     context_object_name = 'product'
 
-    def get_context_data(self, *arg, **kwargs):
-        context = super(ProductDetailView, self).get_context_data(*arg, **kwargs)
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
         instance = self.get_object()
         context["related"] = sorted(Product.objects.get_related(instance),
                                     key=lambda x: random.random())
@@ -53,9 +53,9 @@ class ProductListlView(ListView):
 
     context_object_name = 'products'
 
-    def get_queryset(self, *arg, **kwargs):
+    def get_queryset(self, *args, **kwargs):
         """Return query search."""
-        queryset = super(ProductListlView, self).get_queryset(*arg, **kwargs)
+        queryset = super(ProductListlView, self).get_queryset(*args, **kwargs)
         query = self.request.GET.get('q')
         if query:
             q_objects = [Q(name__icontains=query), Q(description__icontains=query)]

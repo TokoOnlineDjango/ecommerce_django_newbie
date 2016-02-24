@@ -31,8 +31,9 @@
         <br>
         <div class="bs-example" data-example-id="simple-thumbnails">
           <div class="row">
-            <div class="col-xs-6 col-md-3"> <a href="#" class="thumbnail">
-              {% for product in related %}
+            <div class="col-xs-6 col-md-3">
+            {% for product in related %}
+            <a href="#" class="thumbnail">
               <a href=" {{ product.get_absolute_url }} ">{{ product.name }}</a><br>
               <img class="image-responsive" src="{{ product.get_image_detail_url  }}" ><br>
             </div>
