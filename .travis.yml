@@ -17,5 +17,6 @@ addons:
 script:
   - "python manage.py migrate --noinput"
   - "python manage.py collectstatic --noinput -l"
+  - "python manage.py test"
 env:
   - POSTGRES_USER=postgres DATABASE_URL=postgres:///toko
