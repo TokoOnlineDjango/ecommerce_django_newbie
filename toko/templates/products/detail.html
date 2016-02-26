@@ -7,7 +7,7 @@
       <div class="col-md-8">
         <h2>{{ product }} </h2>
         {% for photo in product.photos.all %}
-        <img src="{{ photo.image.avatar.url  }}" >
+        <img src="{{ photo.image.medium.url  }}" >
         {% endfor %}
       </div>
       <div class="col-md-4">
@@ -27,19 +27,21 @@
         <span class="fa fa-facebook fa-2x"></span>
         </a>
         <hr>
-        Related Category
+        {% if related_products %}
+        Related products
         <br>
         <div class="bs-example" data-example-id="simple-thumbnails">
           <div class="row">
             <div class="col-xs-6 col-md-3">
-            {% for product in related %}
+            {% for product in related_products %}
             <a href="#" class="thumbnail">
               <a href=" {{ product.get_absolute_url }} ">{{ product.name }}</a><br>
-              <img class="image-responsive" src="{{ product.get_image_detail_url  }}" ><br>
-            </div>
+              <img class="image-responsive" src="{{ product.primary_image.small.url  }}" ><br>
             {% endfor %}
+            </div>
           </div>
         </div>
+        {% endif %}
       </div>
     </div>
     <div class="container-fluid">

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 from __future__ import absolute_import, unicode_literals
 
 import environ
+import sys
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 APPS_DIR = ROOT_DIR.path('toko')
@@ -47,6 +48,7 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'toko.apps.categories',
     'toko.apps.products',
     'toko.apps.users',
 )
@@ -233,7 +235,7 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 # CELERY
 INSTALLED_APPS += ('toko.taskapp.celery.CeleryConfig',)
-# if you are not using the django database broker (e.g. rabbitmq, redis, memcached), you can remove the next line.
+# if you are not using the django database broker (e.g. rabbitmq, redis, memcached), you can remove the next line.  # noqa
 INSTALLED_APPS += ('kombu.transport.django',)
 BROKER_URL = env("CELERY_BROKER_URL", default='django://')
 # END CELERY
@@ -247,8 +249,17 @@ ADMIN_URL = r'^admin/'
 
 THUMBNAIL_ALIASES = {
     '': {
-        'avatar': {'size': (602, 339), 'crop': True},
+        'medium': {'size': (602, 339), 'crop': True},
+        'small': {'size': (50, 50), 'crop': True}
     },
 }
 
-FONTAWESOME_CSS_URL = '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'  # absolute url
+FONTAWESOME_CSS_URL = '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'  # absolute url  # noqa
+
+if 'test' in sys.argv:
+    TEST = True
+    ES_DISABLED = True
+    PASSWORD_HASHERS = (
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    )
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'

@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from toko.apps.products.models import ProductFeatured
+from toko.apps.products.models import Product
 
 
 class HomeView(TemplateView):
@@ -7,5 +7,6 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['featured'] = ProductFeatured.objects.first()
+        context['featured_products'] = Product.objects \
+            .prefetch_related('photos').featured()
         return context

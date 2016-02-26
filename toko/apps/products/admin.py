@@ -1,14 +1,12 @@
 from django.contrib import admin
-from .models import Product, Photo, ProductVariation, Category, PhotoFeatured, ProductFeatured
+
+from .models import (
+    Product, Photo, ProductVariation
+)
 
 
 class PhotoInline(admin.StackedInline):
     model = Photo
-    extra = 0
-
-
-class PhotoInlineFeatured(admin.StackedInline):
-    model = PhotoFeatured
     extra = 0
 
 
@@ -17,11 +15,17 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_active', 'price', 'stock')
     inlines = [PhotoInline]
 
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            if not change:
+                instance.created_by = request.user
+            instance.save()
 
-class ProductFeaturedAdmin(admin.ModelAdmin):
-    model = ProductFeatured
-    list_display = ('name', 'is_active',)
-    inlines = [PhotoInlineFeatured]
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.created_by = request.user
+        obj.save()
 
 
 class ProductVariationAdmin(admin.ModelAdmin):
@@ -29,11 +33,5 @@ class ProductVariationAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_active', 'price', 'stock')
 
 
-class CategoryAdmin(admin.ModelAdmin):
-    model = Category
-    list_display = ('name', 'slug', 'description', 'is_active')
-
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductVariation, ProductVariationAdmin)
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(ProductFeatured, ProductFeaturedAdmin)

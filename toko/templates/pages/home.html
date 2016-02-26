@@ -13,38 +13,25 @@
   {% endblock %}
 </style>
 {% block jumbotron %}
-{% if featured_image %}
+{% if featured_products %}
+{% for product in featured_products %}
 <div class="jumbotron">
   <div class="col-sm-6  pull-left ">
-    <img vspace="20" class="jumbotronwidth" alt=" " src="{{ featured.get_image_featured_url }}">
+    <img vspace="20" class="jumbotronwidth" alt=" " src="{{ product.primary_image.medium.url }}">
   </div>
   <div class="col-sm-6">
     <h1>
-      {{ featured.product.name }}
+      {{ product.name }}
     </h1>
     <p>
-      {{ featured.product.description|safe }}
+      {{ product.description|safe }}
     </p>
     <p>
-      <a class="btn btn-primary btn-large" href="{{ featured.product.get_absolute_url }}">Learn more</a>&nbsp;
+      <a class="btn btn-primary btn-large" href="{{ product.get_absolute_url }}">Learn more</a>&nbsp;
     </p>
   </div>
 </div>
-{% else %}
-<div class="jumbotron">
-  <div class="col-sm-6  pull-left ">
-    <img vspace="20" class="jumbotronwidth" alt=" " src="http://placehold.it/350x200">
-  </div>
-  <div class="col-sm-6">
-    <h1>
-    </h1>
-    <p>
-    </p>
-    <p>
-      <a class="btn btn-primary btn-large" href="{% url 'pages:home' %}">Learn more</a>&nbsp;
-    </p>
-  </div>
-</div>
+{% endfor %}
 {% endif %}
 {% endblock %}
 {% block content %}
