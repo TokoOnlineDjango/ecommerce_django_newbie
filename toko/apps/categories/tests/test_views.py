@@ -9,11 +9,11 @@ class CategoryViewTest(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.category = Category.objects.create(name='Drinks')
 
     def test_detail_category(self):
-        category = Category.objects.create(name='Drinks')
         response = self.client.get(reverse(
-            'categories:detail', args=[category.slug]))
+            'categories:detail', args=[self.category.slug]))
         self.assertEqual(response.status_code, 200)
 
     def test_list_category(self):
