@@ -256,9 +256,10 @@ THUMBNAIL_ALIASES = {
 
 FONTAWESOME_CSS_URL = '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'  # absolute url  # noqa
 
+TEST = False
+
 if 'test' in sys.argv:
     TEST = True
-    ES_DISABLED = True
     PASSWORD_HASHERS = (
         'django.contrib.auth.hashers.MD5PasswordHasher',
     )
