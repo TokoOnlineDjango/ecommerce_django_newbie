@@ -1,1 +1,38 @@
 {% extends "base.html" %}
+<style>
+  {% block style %}
+  .jumbotron {
+  /*background-image: url("{{ featured.photos.first.image.url }}");*/
+  background-repeat: no-repeat;
+  width: 100%;
+  max-width:100%;
+  background-size: cover;
+  background-position-y: -272px;
+  overflow: hidden;
+  }
+  {% endblock %}
+</style>
+{% block jumbotron %}
+{% if featured_products %}
+{% for product in featured_products %}
+<div class="jumbotron">
+  <div class="col-sm-6  pull-left ">
+    <img vspace="20" class="jumbotronwidth" alt=" " src="{{ product.primary_image.medium.url }}">
+  </div>
+  <div class="col-sm-6">
+    <h1>
+      {{ product.name }}
+    </h1>
+    <p>
+      {{ product.description|safe }}
+    </p>
+    <p>
+      <a class="btn btn-primary btn-large" href="{{ product.get_absolute_url }}">Learn more</a>&nbsp;
+    </p>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}
+{% block content %}
+{% endblock %}

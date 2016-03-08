@@ -9,11 +9,11 @@ from . import views
 urlpatterns = [
     url(
         regex=r'^(?P<slug>[\w-]+)$',
-        view=views.ProductDetailView.as_view(),
+        view=views.CategoryDetailView.as_view(),
         name='detail'
     ), url(
         regex=r'^$',
-        view=views.ProductListlView.as_view(),
+        view=views.CategoryListView.as_view(),
         name='list'
     ),
 ]

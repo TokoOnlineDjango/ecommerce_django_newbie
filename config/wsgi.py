@@ -14,11 +14,11 @@ framework.
 
 """
 import os
+from django.core.wsgi import get_wsgi_application
 
 if os.environ.get("DJANGO_SETTINGS_MODULE") == "config.settings.production":
     import newrelic.agent
     newrelic.agent.initialize()
-from django.core.wsgi import get_wsgi_application
 
 if os.environ.get("DJANGO_SETTINGS_MODULE") == "config.settings.production":
     from raven.contrib.django.raven_compat.middleware.wsgi import Sentry

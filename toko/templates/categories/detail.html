@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>All Product Category {{ category }}</h2>
+
+<hr>
+<div class="row">
+  {% for product in category.products.all %}
+  <div class="col-sm-4">
+    {% include "products/product_thumbnails.html" with product=product %}
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
