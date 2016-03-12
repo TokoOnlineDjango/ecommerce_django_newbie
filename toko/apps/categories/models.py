@@ -14,7 +14,7 @@ class Category(TimeStampedModel):
     description = RichTextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     created_by = models.ForeignKey('users.User', blank=True, null=True,
-                                   related_name='categories')
+                                   related_name='categories', editable=False)
 
     def get_absolute_url(self):
         return reverse('categories:detail', kwargs={'slug': self.slug})
