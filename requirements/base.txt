@@ -47,8 +47,9 @@ redis>=2.10.0
 
 celery==3.1.20
 
-
-# Your custom requirements go here
+# Phone numbers
+id-phonenumbers==0.1.4
+phonenumbers==7.2.7
 
 # Fontawesome
 
