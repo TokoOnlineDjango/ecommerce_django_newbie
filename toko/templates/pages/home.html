@@ -35,4 +35,23 @@
 {% endif %}
 {% endblock %}
 {% block content %}
+<h4>Categories</h4>
+    <div class="row">
+    {% for category in categories %}
+
+      <div class="col-sm-4">
+          <a href=" {{ category.get_absolute_url }} ">{{ category }}</a>
+    </div>
+{% endfor %}
+</div>
+<hr>
+
+<h4>Products</h4>
+<div class="row">
+  {% for product in products %}
+  <div class="col-sm-4">
+      {% include "products/product_thumbnails.html" with product=product %}
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

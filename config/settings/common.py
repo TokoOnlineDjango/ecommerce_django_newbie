@@ -49,6 +49,7 @@ THIRD_PARTY_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'toko.apps.categories',
+    'toko.apps.charts',
     'toko.apps.products',
     'toko.apps.users',
 )
@@ -249,7 +250,7 @@ ADMIN_URL = r'^admin/'
 
 THUMBNAIL_ALIASES = {
     '': {
-        'medium': {'size': (602, 339), 'crop': True},
+        'medium': {'size': (400, 340), 'crop': True},
         'small': {'size': (50, 50), 'crop': True}
     },
 }

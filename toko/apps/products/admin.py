@@ -10,10 +10,16 @@ class PhotoInline(admin.StackedInline):
     extra = 0
 
 
+class VariationsInline(admin.TabularInline):
+    model = ProductVariation
+    extra = 0
+
+
 class ProductAdmin(admin.ModelAdmin):
     model = Product
     list_display = ('name', 'is_active', 'price', 'stock')
-    inlines = [PhotoInline]
+    inlines = [PhotoInline, VariationsInline]
+    search_fields = ('name', )
 
     def save_formset(self, request, form, formset, change):
         instances = formset.save(commit=False)
